@@ -7,8 +7,7 @@
     /* Bundler mode */
     "moduleResolution": "bundler",
     "paths": {
-      "@/*": ["./src/*"],
-      "~/test-support/*": ["./shared/test-support/*"]
+      "@/*": ["./src/*"]
     },
     "esModuleInterop": true,
     "resolveJsonModule": true,
@@ -21,7 +20,7 @@
     "noFallthroughCasesInSwitch": true,
     "noImplicitAny": true,
     "jsx": "react-jsx",
-    "types": ["vite/client", "vitest/globals"]
+    "types": ["vite/client"]
   },
   "include": ["src", "./*.ts"]
 }

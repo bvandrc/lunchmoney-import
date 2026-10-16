@@ -1,6 +1,6 @@
-# React Frontend Template
+# lunchmoney-import
 
-> A Vite + React + TypeScript starter with Tailwind CSS, Biome, and Playwright suites for end-to-end, accessibility, and Lighthouse checks.
+> Import Amazon order history and match it to Amazon transactions in Lunch Money by price and date.
 
 ## Links
-- [Website](https://bvandrc.github.io/bvandrc-project-template-react-frontend/)
+- [Website](TODO-URL-UNKNOWN)
