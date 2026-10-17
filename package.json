@@ -34,6 +34,9 @@
     "ts:check": "tsc"
   },
   "dependencies": {
+    "@lunch-money/lunch-money-js-v2": "^2",
+    "@tanstack/react-query": "^5",
+    "@tanstack/react-table": "^9",
     "clsx": "^2",
     "es-toolkit": "^1",
     "react": "^18",

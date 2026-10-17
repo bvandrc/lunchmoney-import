@@ -3,7 +3,8 @@
 A web app that imports Amazon's exported transaction data and matches each order to the existing Lunch Money transaction for the payee "Amazon" by price and date, using the Lunch Money API. Where it will be deployed is not yet decided.
 
 - **Stack**: React 18 + Vite + TypeScript, Tailwind v4, Biome.
-- **Layout**: `src/` is the app; `main.tsx` is the entry point and `App.tsx` the root component.
+- **Layout**: `src/` is the app; `main.tsx` is the entry point and `App.tsx` the root component. `api/` holds the Lunch Money client, `hooks/` the TanStack Query hooks that fetch through it, and `components/` the UI.
+- **API token**: `VITE_LUNCH_MONEY_API_KEY` in `.env.local` (template in `.env.example`). Vite inlines it into the bundle, and the API allows browser calls from `localhost:5000`, so there's no server in between.
 - **Base path**: `site.config.ts` holds `BASE_PATH`, imported by `vite.config.ts`. It's `/` until a host is chosen. In app code, build asset URLs from `import.meta.env.BASE_URL` — a leading-slash path like `/logo.svg` 404s if the site is ever served from a subpath.
 
 ## Code conventions
