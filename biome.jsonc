@@ -1,6 +1,6 @@
 {
   "$schema": "./node_modules/@biomejs/biome/configuration_schema.json",
-  "extends": ["./conventions/biome.base.json"],
+  "extends": ["./conventions/biome.base.jsonc"],
   "css": {
     "parser": {
       "tailwindDirectives": true
@@ -8,16 +8,18 @@
   },
   "linter": {
     "rules": {
-      "correctness": {
-        // wish we could use this but it doesn't work with tsconfig path aliases
-        "noUndeclaredDependencies": "off"
-      },
       "suspicious": {
         "noUnknownAtRules": "off"
       }
     }
   },
   "files": {
-    "includes": ["**", "!!**/dist", "!**/node_modules"]
+    "includes": [
+      "**",
+      "!!conventions",
+      "!!**/coverage",
+      "!!**/dist",
+      "!**/node_modules"
+    ]
   }
 }
