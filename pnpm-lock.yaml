@@ -26,6 +26,9 @@ importers:
       tailwind-merge:
         specifier: ^3
         version: 3.7.0
+      ts-extras:
+        specifier: ^2
+        version: 2.0.0
       usehooks-ts:
         specifier: ^3
         version: 3.1.1(react@18.3.1)
@@ -752,6 +755,10 @@ packages:
     resolution: {integrity: sha512-wXR/dYpcqKmfWpEdZjiKJOwCNFndD0DMnrW/cYjVGttEkBfVgcLFHoNrlj47mjOVic9yyNu65alsgF4NQyTa2g==}
     engines: {node: '>=12.0.0'}
 
+  ts-extras@2.0.0:
+    resolution: {integrity: sha512-6Od/iEjnYLACBp0IwwMZHew1vO5/fB7DuCFsBO88mGc71Qh05nlH2gFPNytBKFlbCg7RAdShRtVcXnQpgeFFZQ==}
+    engines: {node: '>=22'}
+
   type-fest@5.10.0:
     resolution: {integrity: sha512-NoSdpq/WEiAg5sjmBkmV/hfxv6HJH4NqPNrqjtSO5CwRmpsDfaf4begxW34KdJykH/l1yHtwBWQkCRdoXO8mPA==}
     engines: {node: '>=20'}
@@ -1271,6 +1278,10 @@ snapshots:
     dependencies:
       fdir: 6.5.0(picomatch@4.0.7)
       picomatch: 4.0.7
+
+  ts-extras@2.0.0:
+    dependencies:
+      type-fest: 5.10.0
 
   type-fest@5.10.0:
     dependencies:
