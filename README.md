@@ -48,5 +48,5 @@ index.html        HTML entry point (title, meta, og tags)
 ## CI
 
 - **CI** — lint and type check on every push and PR
-- **PR Reports** — changed-line count and bundle-size diff, posted as sticky comments on each PR
+- **PR CI** — pull-request-only jobs: the changed-line count, written to the run's job summary
 - **Sync Conventions** — weekly PR syncing `conventions/` from bvandrc-conventions
