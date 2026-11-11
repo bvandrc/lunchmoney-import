@@ -43,7 +43,7 @@
     "usehooks-ts": "^3"
   },
   "devDependencies": {
-    "@biomejs/biome": "^2",
+    "@biomejs/biome": "^2.6.7",
     "@tailwindcss/vite": "^4",
     "@types/node": "^24",
     "@types/react": "^18",

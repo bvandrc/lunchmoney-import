@@ -11,12 +11,12 @@ Where it will be deployed is still to be decided (TODO-URL-UNKNOWN).
 
 ## Scripts
 
-| Script         | What it does                    |
-| -------------- | ------------------------------- |
-| `pnpm dev`     | Vite dev server on port 5000    |
-| `pnpm build`   | Production build into `dist`    |
-| `pnpm preview` | Build, then serve `dist`        |
-| `pnpm check`   | Format + lint + type check      |
+| Script         | What it does                 |
+| -------------- | ---------------------------- |
+| `pnpm dev`     | Vite dev server on port 5000 |
+| `pnpm build`   | Production build into `dist` |
+| `pnpm preview` | Build, then serve `dist`     |
+| `pnpm check`   | Format + lint + type check   |
 
 ## Layout
 
