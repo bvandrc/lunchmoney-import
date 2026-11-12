@@ -43,10 +43,11 @@
     "react-dom": "^18",
     "react-ga4": "^3",
     "tailwind-merge": "^3",
+    "ts-extras": "^2",
     "usehooks-ts": "^3"
   },
   "devDependencies": {
-    "@biomejs/biome": "^2",
+    "@biomejs/biome": "^2.6.7",
     "@tailwindcss/vite": "^4",
     "@types/node": "^24",
     "@types/react": "^18",

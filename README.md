@@ -20,12 +20,12 @@ The token is built into the client bundle, so only run a build that carries it w
 
 ## Scripts
 
-| Script         | What it does                    |
-| -------------- | ------------------------------- |
-| `pnpm dev`     | Vite dev server on port 5000    |
-| `pnpm build`   | Production build into `dist`    |
-| `pnpm preview` | Build, then serve `dist`        |
-| `pnpm check`   | Format + lint + type check      |
+| Script         | What it does                 |
+| -------------- | ---------------------------- |
+| `pnpm dev`     | Vite dev server on port 5000 |
+| `pnpm build`   | Production build into `dist` |
+| `pnpm preview` | Build, then serve `dist`     |
+| `pnpm check`   | Format + lint + type check   |
 
 ## Layout
 
@@ -61,5 +61,5 @@ index.html        HTML entry point (title, meta, og tags)
 ## CI
 
 - **CI** — lint and type check on every push and PR
-- **PR Reports** — changed-line count and bundle-size diff, posted as sticky comments on each PR
+- **PR CI** — pull-request-only jobs: the changed-line count, written to the run's job summary
 - **Sync Conventions** — weekly PR syncing `conventions/` from bvandrc-conventions
