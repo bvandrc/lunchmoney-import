@@ -43,7 +43,7 @@ public/
   sitemap.xml     Sitemap
   llms.txt        LLM-readable site summary
 src/
-  api/            Lunch Money API client
+  lib/            Lunch Money API client
   components/     UI components
   hooks/          Data hooks
   styles/         Tailwind entrypoint and theme tokens

@@ -1,6 +1,6 @@
-import { lunchMoney } from '@/api/lunch-money'
 import { TransactionsTable } from '@/components/TransactionsTable'
 import { useTransactionRows } from '@/hooks/useTransactionRows'
+import { lunchMoney } from '@/lib/lunch-money'
 import { pluralize } from '@/utils'
 
 import './styles/index.css'

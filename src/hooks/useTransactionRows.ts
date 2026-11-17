@@ -3,7 +3,7 @@ import type { Tag } from '@lunch-money/lunch-money-js-v2'
 import { useQuery } from '@tanstack/react-query'
 import { keyBy } from 'es-toolkit'
 
-import { lunchMoney } from '@/api/lunch-money'
+import { lunchMoney } from '@/lib/lunch-money'
 
 /** A transaction with its category and tags resolved to names, ready to display. */
 export type TransactionRow = {

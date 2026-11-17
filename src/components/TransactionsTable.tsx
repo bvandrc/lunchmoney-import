@@ -67,6 +67,11 @@ const columns = helper.columns([
   }),
 ])
 
+/** Extra classes for a column's header and cells, by column id. */
+const COLUMN_CLASSES: Record<string, string | undefined> = {
+  amount: 'text-right tabular-nums',
+}
+
 const SORT_INDICATOR = {
   asc: ' ▲',
   desc: ' ▼',
@@ -104,7 +109,10 @@ export const TransactionsTable = ({ rows }: TransactionsTableProps) => {
                   <th
                     key={header.id}
                     aria-sort={ARIA_SORT[sorted]}
-                    className="px-3 py-2 font-medium whitespace-nowrap">
+                    className={cn(
+                      'px-3 py-2 font-medium whitespace-nowrap',
+                      COLUMN_CLASSES[header.column.id]
+                    )}>
                     {header.column.getCanSort() ? (
                       <button
                         type="button"
@@ -130,7 +138,7 @@ export const TransactionsTable = ({ rows }: TransactionsTableProps) => {
                   key={cell.id}
                   className={cn(
                     'px-3 py-2 align-top',
-                    cell.column.id === 'amount' && 'text-right tabular-nums'
+                    COLUMN_CLASSES[cell.column.id]
                   )}>
                   <table.FlexRender cell={cell} />
                 </td>
