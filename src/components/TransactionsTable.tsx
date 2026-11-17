@@ -8,8 +8,19 @@ import {
 } from '@tanstack/react-table'
 import { CircleCheck } from 'lucide-react'
 
-import type { TransactionRow } from '@/hooks/useTransactionRows'
-import { cn } from '@/utils'
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from '@/components/primitives/Table'
+import {
+  type TransactionRow,
+  useTransactionRows,
+} from '@/hooks/useTransactionRows'
+import { cn, pluralize } from '@/utils'
 
 const AMOUNT_FORMAT = new Intl.NumberFormat('en-US', {
   style: 'currency',
@@ -92,81 +103,72 @@ const COLUMN_CLASSES: Record<string, string | undefined> = {
   reviewed: 'text-center',
 }
 
-const SORT_INDICATOR = {
-  asc: ' ▲',
-  desc: ' ▼',
-  none: '',
-} satisfies Record<'asc' | 'desc' | 'none', string>
+// Stable, so the table doesn't rebuild its rows on every render while loading.
+const NO_ROWS: TransactionRow[] = []
 
-const ARIA_SORT = {
-  asc: 'ascending',
-  desc: 'descending',
-  none: 'none',
-} satisfies Record<'asc' | 'desc' | 'none', React.AriaAttributes['aria-sort']>
-
-export type TransactionsTableProps = {
-  rows: TransactionRow[]
-}
-
-/** Transactions in a table, newest first, sortable by clicking a column header. */
-export const TransactionsTable = ({ rows }: TransactionsTableProps) => {
+/**
+ * The account's recent transactions in a table, newest first and sortable by clicking a column header.
+ *
+ * Shows a loading line until the data arrives, and the error in place of the table if a request fails.
+ */
+export const TransactionsTable = () => {
+  const { rows, hasMore, error } = useTransactionRows()
   const table = useTable({
     features,
     columns,
-    data: rows,
+    data: rows ?? NO_ROWS,
     initialState: { sorting: [{ id: 'date', desc: true }] },
   })
 
+  if (error) {
+    return (
+      <p role="alert" className="text-tone-caution">
+        Couldn't load transactions: {error.message}
+      </p>
+    )
+  }
+  if (!rows) return <p className="text-ink-muted">Loading transactions…</p>
+
   return (
-    <div className="overflow-x-auto rounded-lg border border-border">
-      <table className="w-full text-left text-sm">
-        <thead className="bg-surface text-ink-muted">
+    <>
+      <p className="text-ink-muted">
+        {pluralize(rows.length, 'transaction')}
+        {hasMore && ' (the most recent; Lunch Money has more)'}
+      </p>
+      <Table>
+        <TableHeader>
           {table.getHeaderGroups().map((group) => (
-            <tr key={group.id}>
-              {group.headers.map((header) => {
-                const sorted = header.column.getIsSorted() || 'none'
-                return (
-                  <th
-                    key={header.id}
-                    aria-sort={ARIA_SORT[sorted]}
-                    className={cn(
-                      'px-3 py-2 font-medium whitespace-nowrap',
-                      COLUMN_CLASSES[header.column.id]
-                    )}>
-                    {header.column.getCanSort() ? (
-                      <button
-                        type="button"
-                        onClick={header.column.getToggleSortingHandler()}
-                        className="hover:text-ink">
-                        <table.FlexRender header={header} />
-                        {SORT_INDICATOR[sorted]}
-                      </button>
-                    ) : (
-                      <table.FlexRender header={header} />
-                    )}
-                  </th>
-                )
-              })}
-            </tr>
-          ))}
-        </thead>
-        <tbody>
-          {table.getRowModel().rows.map((row) => (
-            <tr key={row.id} className="border-t border-border">
-              {row.getAllCells().map((cell) => (
-                <td
-                  key={cell.id}
-                  className={cn(
-                    'px-3 py-2 align-top',
-                    COLUMN_CLASSES[cell.column.id]
-                  )}>
-                  <table.FlexRender cell={cell} />
-                </td>
+            <TableRow key={group.id}>
+              {group.headers.map((header) => (
+                <TableHead
+                  key={header.id}
+                  sort={header.column.getIsSorted() || 'none'}
+                  onSort={
+                    header.column.getCanSort()
+                      ? header.column.getToggleSortingHandler()
+                      : undefined
+                  }
+                  className={COLUMN_CLASSES[header.column.id]}>
+                  <table.FlexRender header={header} />
+                </TableHead>
               ))}
-            </tr>
+            </TableRow>
           ))}
-        </tbody>
-      </table>
-    </div>
+        </TableHeader>
+        <TableBody>
+          {table.getRowModel().rows.map((row) => (
+            <TableRow key={row.id}>
+              {row.getAllCells().map((cell) => (
+                <TableCell
+                  key={cell.id}
+                  className={COLUMN_CLASSES[cell.column.id]}>
+                  <table.FlexRender cell={cell} />
+                </TableCell>
+              ))}
+            </TableRow>
+          ))}
+        </TableBody>
+      </Table>
+    </>
   )
 }
