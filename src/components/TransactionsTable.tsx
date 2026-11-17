@@ -6,6 +6,7 @@ import {
   tableFeatures,
   useTable,
 } from '@tanstack/react-table'
+import { CircleCheck } from 'lucide-react'
 
 import type { TransactionRow } from '@/hooks/useTransactionRows'
 import { cn } from '@/utils'
@@ -22,6 +23,14 @@ const features = tableFeatures({
 })
 
 const helper = createColumnHelper<typeof features, TransactionRow>()
+
+const REVIEW = {
+  REVIEWED: { label: 'Reviewed', className: 'text-tone-positive' },
+  UNREVIEWED: { label: 'Not reviewed', className: 'text-ink-muted/50' },
+} satisfies Record<
+  'REVIEWED' | 'UNREVIEWED',
+  { label: string; className: string }
+>
 
 const columns = helper.columns([
   helper.accessor('payee', { header: 'Payee', sortFn: 'text' }),
@@ -63,13 +72,24 @@ const columns = helper.columns([
   }),
   helper.accessor('reviewed', {
     header: 'Reviewed',
-    cell: (info) => (info.getValue() ? 'Yes' : 'No'),
+    cell: (info) => {
+      const review = REVIEW[info.getValue() ? 'REVIEWED' : 'UNREVIEWED']
+      return (
+        <CircleCheck
+          role="img"
+          aria-label={review.label}
+          className={cn('inline size-5', review.className)}
+        />
+      )
+    },
   }),
 ])
 
 /** Extra classes for a column's header and cells, by column id. */
 const COLUMN_CLASSES: Record<string, string | undefined> = {
-  amount: 'text-right tabular-nums',
+  date: 'whitespace-nowrap tabular-nums',
+  amount: 'text-right whitespace-nowrap tabular-nums',
+  reviewed: 'text-center',
 }
 
 const SORT_INDICATOR = {
