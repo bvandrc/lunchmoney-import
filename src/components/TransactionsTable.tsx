@@ -1,21 +1,6 @@
-import {
-  createColumnHelper,
-  createSortedRowModel,
-  rowSortingFeature,
-  sortFn_text,
-  tableFeatures,
-  useTable,
-} from '@tanstack/react-table'
 import { CircleCheck } from 'lucide-react'
 
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from '@/components/primitives/Table'
+import { createTableColumnHelper, Table } from '@/components/primitives/Table'
 import {
   type TransactionRow,
   useTransactionRows,
@@ -27,13 +12,7 @@ const AMOUNT_FORMAT = new Intl.NumberFormat('en-US', {
   currency: 'USD',
 })
 
-const features = tableFeatures({
-  rowSortingFeature,
-  sortedRowModel: createSortedRowModel(),
-  sortFns: { text: sortFn_text },
-})
-
-const helper = createColumnHelper<typeof features, TransactionRow>()
+const helper = createTableColumnHelper<TransactionRow>()
 
 const REVIEW = {
   REVIEWED: { label: 'Reviewed', className: 'text-tone-positive' },
@@ -103,8 +82,7 @@ const COLUMN_CLASSES: Record<string, string | undefined> = {
   reviewed: 'text-center',
 }
 
-// Stable, so the table doesn't rebuild its rows on every render while loading.
-const NO_ROWS: TransactionRow[] = []
+const INITIAL_SORTING = [{ id: 'date', desc: true }]
 
 /**
  * The account's recent transactions in a table, newest first and sortable by clicking a column header.
@@ -113,12 +91,6 @@ const NO_ROWS: TransactionRow[] = []
  */
 export const TransactionsTable = () => {
   const { rows, hasMore, error } = useTransactionRows()
-  const table = useTable({
-    features,
-    columns,
-    data: rows ?? NO_ROWS,
-    initialState: { sorting: [{ id: 'date', desc: true }] },
-  })
 
   if (error) {
     return (
@@ -135,40 +107,12 @@ export const TransactionsTable = () => {
         {pluralize(rows.length, 'transaction')}
         {hasMore && ' (the most recent; Lunch Money has more)'}
       </p>
-      <Table>
-        <TableHeader>
-          {table.getHeaderGroups().map((group) => (
-            <TableRow key={group.id}>
-              {group.headers.map((header) => (
-                <TableHead
-                  key={header.id}
-                  sort={header.column.getIsSorted() || 'none'}
-                  onSort={
-                    header.column.getCanSort()
-                      ? header.column.getToggleSortingHandler()
-                      : undefined
-                  }
-                  className={COLUMN_CLASSES[header.column.id]}>
-                  <table.FlexRender header={header} />
-                </TableHead>
-              ))}
-            </TableRow>
-          ))}
-        </TableHeader>
-        <TableBody>
-          {table.getRowModel().rows.map((row) => (
-            <TableRow key={row.id}>
-              {row.getAllCells().map((cell) => (
-                <TableCell
-                  key={cell.id}
-                  className={COLUMN_CLASSES[cell.column.id]}>
-                  <table.FlexRender cell={cell} />
-                </TableCell>
-              ))}
-            </TableRow>
-          ))}
-        </TableBody>
-      </Table>
+      <Table
+        columns={columns}
+        data={rows}
+        initialSorting={INITIAL_SORTING}
+        columnClasses={COLUMN_CLASSES}
+      />
     </>
   )
 }
