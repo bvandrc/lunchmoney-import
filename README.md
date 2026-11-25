@@ -4,7 +4,7 @@ A web app for importing Amazon order history into [Lunch Money](https://lunchmon
 
 Where it will be deployed is still to be decided (TODO-URL-UNKNOWN).
 
-- **Vite 8** + **React 18** + **TypeScript**
+- **Vite 8** + **React 19** + **TypeScript**
 - **TanStack Query** for API data and **TanStack Table** for the transactions table, against Lunch Money's [`@lunch-money/lunch-money-js-v2`](https://www.npmjs.com/package/@lunch-money/lunch-money-js-v2) client
 - **Tailwind CSS 4** via `@tailwindcss/vite`, with theme tokens in [src/styles/index.css](src/styles/index.css)
 - **Biome** for formatting, linting, and import sorting
